@@ -20,11 +20,13 @@ SOURCES += main.cpp \
     walldistance.cpp \
     duration.cpp \
     distance.cpp \
-    coverage.cpp
+    coverage.cpp \
+    coverage2.cpp
 
 HEADERS += \
     vaccleananalyzer.h \
     walldistance.h \
     duration.h \
     distance.h \
-    coverage.h
+    coverage.h \
+    coverage2.h
