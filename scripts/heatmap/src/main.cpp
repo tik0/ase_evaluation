@@ -20,24 +20,25 @@ std::vector<DataPoint> read_tracking_data(const char *filename)
 {
     std::vector<DataPoint> data;
 
-    FILE *f = fopen(filename, "r");
-    if (f == NULL)
+    QFile dataCam(filename);
+    if (dataCam.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        fprintf(stderr, "Failed opening %s\n", filename);
-        exit(1);
-    }
+        while (!dataCam.atEnd())
+        {
+            QString line = dataCam.readLine();
+            QStringList splitLine = line.simplified().split(' ', QString::SkipEmptyParts);
 
-    float timestamp = 0;
-    int n = 0, id = 0, rot = 0, x = 0, y = 0;
-
-    while (EOF != fscanf(f, "%f %d %d %d %d %d", &timestamp, &n, &id, &rot, &x, &y)) {
-        DataPoint d;
-        d.x = x;
-        d.y = y;
-        d.rotation = rot;
-        data.push_back(d);
+            if(splitLine.length() > 5 && splitLine.at(1).toInt() != 0)
+            {
+                DataPoint d;
+                d.x = splitLine.at(4).toInt();
+                d.y = splitLine.at(5).toInt();
+                d.rotation = splitLine.at(3).toInt();
+                data.push_back(d);
+            }
+        }
+        dataCam.close();
     }
-    fclose(f);
 
     return data;
 }
