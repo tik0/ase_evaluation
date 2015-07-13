@@ -1,0 +1,93 @@
+Version: 629537d96463dfbd4f35963281c24985366a832e
+Timestamp: 20150707T094055
+
+########################
+After 5 minutes:
+
+Trackpoints: 7103
+Coverage:    30.45 %
+Distance:    16802.6 px
+             56.0086 m
+Duration:    300 sec
+             00:05:00 (hh:mm:ss)
+
+########################
+After 10 minutes:
+
+Trackpoints: 12857
+Coverage:    52.82 %
+Distance:    28626.2 px
+             95.4206 m
+Duration:    600 sec
+             00:10:00 (hh:mm:ss)
+
+########################
+After 15 minutes:
+
+Trackpoints: 20967
+Coverage:    77.34 %
+Distance:    43162 px
+             143.873 m
+Duration:    900 sec
+             00:15:00 (hh:mm:ss)
+
+########################
+After 20 minutes:
+
+Trackpoints: 27924
+Coverage:    87 %
+Distance:    55074.1 px
+             183.58 m
+Duration:    1200 sec
+             00:20:00 (hh:mm:ss)
+
+########################
+After 25 minutes:
+
+Trackpoints: 35820
+Coverage:    89.74 %
+Distance:    83420.7 px
+             278.069 m
+Duration:    1500 sec
+             00:25:00 (hh:mm:ss)
+
+########################
+After 30 minutes:
+
+Trackpoints: 42961
+Coverage:    90.89 %
+Distance:    104598 px
+             348.659 m
+Duration:    1800 sec
+             00:30:00 (hh:mm:ss)
+
+########################
+After 35 minutes:
+
+Trackpoints: 48252
+Coverage:    91.25 %
+Distance:    110611 px
+             368.705 m
+Duration:    2104 sec
+             00:35:04 (hh:mm:ss)
+
+########################
+After 40 minutes:
+
+Trackpoints: 51348
+Coverage:    91.69 %
+Distance:    122381 px
+             407.936 m
+Duration:    2400 sec
+             00:40:00 (hh:mm:ss)
+
+########################
+Finished calculations.
+
+Total Trackpoints: 54154
+Total Coverage:    91.69 %
+Total Distance:    123529 px
+                   411.764 m
+Total Duration:    2520 sec
+                   00:42:00 (hh:mm:ss)
+ 
