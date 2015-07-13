@@ -3,6 +3,8 @@
 #include <QFile>
 #include <iostream>
 
+#include "coverage2.h"
+
 #define IMAGE_WIDTH 2000
 #define IMAGE_HEIGHT 2000
 
@@ -15,6 +17,8 @@ VacCleanAnalyzer::VacCleanAnalyzer(int trackerID, int diameterInCM, QObject *par
 void VacCleanAnalyzer::start()
 {
     std::cout << "starting vacCleanAnalyzer..." << std::endl;
+
+    Coverage2 hist(IMAGE_WIDTH, IMAGE_HEIGHT, this->diameterInCM);
 
     this->coverageWorker = new Coverage(IMAGE_WIDTH, IMAGE_HEIGHT, this->diameterInCM);
     this->distanceWorker = new Distance();
@@ -37,9 +41,14 @@ void VacCleanAnalyzer::start()
         counter++;
         trackingDataIterator.next();
 
+        int x = trackingDataIterator.value().at(0);
+        int y = trackingDataIterator.value().at(1);
+
         this->durationWorker->updateDuration(&(trackingDataIterator.key()));
         this->coverageWorker->updateCoverage(&(trackingDataIterator.value()));
         this->distanceWorker->updateDistance(&(trackingDataIterator.value()));
+        hist.updateMap(counter,x,y);
+
 
         //print messages and export image every 5 minutes
         if (this->durationWorker->getCurrentDuration() >= goal) {
@@ -50,6 +59,10 @@ void VacCleanAnalyzer::start()
             std::cout << "             " << this->distanceWorker->getDistanceInM() << " m" << std::endl;
             std::cout << "Duration:    " << this->durationWorker->getCurrentDuration() << " sec" << std::endl;
             std::cout << "             " << this->durationWorker->getFormattedDuration().toStdString() << " (hh:mm:ss)" << std::endl;
+
+            std::cout << std::endl;
+            std::cout << "Coverage 2: " << hist.getCurrentCoveragePercent() << std::endl;
+            hist.printHist();
 
             QString minuteString = QString::number(this->durationWorker->getCurrentDuration() / 60);
             if (minuteString.size() == 1) {
@@ -74,6 +87,9 @@ void VacCleanAnalyzer::start()
     std::cout << "                   " << this->distanceWorker->getDistanceInM() << " m" << std::endl;
     std::cout << "Total Duration:    " << this->durationWorker->getCurrentDuration() << " sec" << std::endl;
     std::cout << "                   " << this->durationWorker->getFormattedDuration().toStdString() << " (hh:mm:ss)" << std::endl;
+
+    std::cout << "Coverage 2: " << hist.getCurrentCoveragePercent() << std::endl;
+    hist.printHist();
 
     std::cout << "\nExporting Coverage Image..." << std::endl;
     this->coverageWorker->exportCurrentCoverageImage();

@@ -6,14 +6,14 @@
 
 class Pixel {
 public:
-    Pixel(bool blocked, uint thresh = 5) {
-       lastVisited = 0;
+    Pixel(bool blocked, int thresh = 10) {
+       lastVisited = -thresh;
        numVisited = 0;
        passable = !blocked;
        updateThreshhold = thresh;
     }
-    void update(uint time) {
-        if (lastVisited - 10 == time) {
+    void update(int time) {
+        if (time - lastVisited  <= updateThreshhold ) {
 
         } else {
             numVisited++;
@@ -21,10 +21,10 @@ public:
         lastVisited = time;
     }
 
-    uint lastVisited;
-    uint numVisited;
+    int lastVisited;
+    int numVisited;
     bool passable;
-    uint updateThreshhold;
+    int updateThreshhold;
 };
 
 class Coverage2
@@ -32,21 +32,22 @@ class Coverage2
 
 public:
     explicit Coverage2(int height, int width, int diameterInCM);
-    void updateMap(uint time, uint x, uint y);
+    void updateMap(int time, int x, int y);
 
     double getCurrentCoveragePercent();
+    void printHist();
 
 private:
     int height, width, diameterInPX;
-    QList<QList<Pixel> > map;
-    QList<uint> hist;
+    QList<QList<Pixel * > > map;
+    QList<int> hist;
 
     QImage *coverageImage;
     QImage *scenarioImage;
     QImage createImageWithOverlay(const QImage& baseImage, const QImage& overlayImage);
 
-    uint passablePx;
-    uint visitedPx;
+    int passablePx;
+    int visitedPx;
     double perc;
 
     void calcHist();

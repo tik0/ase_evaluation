@@ -3,8 +3,25 @@
 #include "coverage2.h"
 
 #include <QPainter>
+#include <iostream>
+
+void Coverage2::printHist() {
+    std::cout << "Histogramm" << std::endl;
+    QString a, b;
+    a.append(QString("pixel \t"));
+    b.append(QString("visits\t"));
+    for(int i = 0 ; i < hist.size(); i++) {
+        a.append(QString::number(hist.at(i)));
+        a.append(QString("\t"));
+        b.append(QString::number(i+1));
+        b.append(QString("\t"));
+    }
+
+    std::cout << b.toStdString() << std::endl;
+    std::cout << a.toStdString() << std::endl;
 
 
+}
 
 Coverage2::Coverage2(int height, int width, int diameterInCM) {
 
@@ -20,22 +37,43 @@ Coverage2::Coverage2(int height, int width, int diameterInCM) {
     passablePx = 0;
     map.clear();
     for(int x = 0; x < width; x++) {
-        QList<Pixel>  a;
+        QList<Pixel *>  a;
         //map.append(QList<Pixel> a);
         for(int y = 0; y < height; y++) {
             bool blocked = (QColor(this->scenarioImage->pixel(x, y)) == Qt::red);
             if(!blocked) passablePx++;
-            Pixel p(blocked);
+            Pixel * p = new Pixel(blocked);
             a.append(p);
         }
         map.append(a);
     }
+    //qDebug() << "Passable pixel:" << passablePx << "of" << height*width << "in map";
 }
 
-void Coverage2::updateMap(uint time, uint x, uint y) {
-    qDebug() << Q_FUNC_INFO << " not implemented";
+void Coverage2::updateMap(int time, int xp, int yp) {
+    //qDebug() << Q_FUNC_INFO << time << xp << yp;
+
+    int r = this->diameterInPX/2;
+
+    for(int x = xp-r ; x < xp+r; x++) {
+        if(x < 0 || x >= map.size()) continue;
+        for(int y = yp-r ; y < yp+r; y++) {
+            QList<Pixel *> ymap = map.at(x);
+            if(y < 0 || y >= ymap.size()) continue;
+            Pixel * p = ymap.at(y);
+            p->update(time);
+        }
+    }
+
+   // for(int x = 0; x < map.size(); x++ ) {
+     //   QList<Pixel> ym = map.at(x);
+       // if (x < xp+r && x > xp-r)
+        //for(int y = 0; y < ym.size(); y++) {
+
+        //}
+   // }
     /*
-    foreach pixel in map
+    foreasch pixel in map
             if pixel in circle around x y
                 pixel.update(time)
     */
@@ -66,13 +104,13 @@ void Coverage2::calcHist() {
 
     hist.clear();
 
-    foreach(QList<Pixel> l , map) {
-        foreach(Pixel p , l) {
-            if(!p.passable) continue;
+    foreach(QList<Pixel *> l , map) {
+        foreach(Pixel * p , l) {
+            if(!p->passable) continue;
 
-            if(p.numVisited != 0) {
+            if(p->numVisited != 0) {
                 visitedPx++;
-                for(uint i = 0; i<p.numVisited;i++) {
+                for(int i = 0; i<p->numVisited;i++) {
                     if(hist.size() <= (int)i) hist.append(0);
                     hist.operator [](i)++;
                     //hist.at[i]++;
@@ -80,13 +118,22 @@ void Coverage2::calcHist() {
             }
         }
     }
+    //qDebug() << "hist visited:" <<  visitedPx;
+    //qDebug() << "histmax" << hist.size();
+    //qDebug() << "hist[0]" << hist.at(0);
+
+    if(hist.isEmpty()) {
+        hist.append(-1);
+    }
 }
 
 double Coverage2::getCurrentCoveragePercent()
 {
-    calcHist();
-    double perc = (double) passablePx / hist.at(0);
 
+    calcHist();
+    double perc = (double) hist.at(0) / passablePx ;
+
+    //qDebug() << "currrentCperc" << perc;
     perc = perc * 10000;
     perc = double(qRound(perc)) / 100;
 

@@ -21,7 +21,7 @@ Coverage::Coverage(int width, int height, int diameterInCM, QObject *parent) : Q
     this->scenarioImage = new QImage("scenario_with_walls.png", "png");
 
     this->coveragePainter = new QPainter(this->coverageImage);
-    this->coveragePainter->setPen(QPen(QColor(0, 255, 0, 1),this->diameterInPX,Qt::SolidLine,Qt::RoundCap,Qt::RoundJoin));
+    this->coveragePainter->setPen(QPen(Qt::green,this->diameterInPX,Qt::SolidLine,Qt::RoundCap,Qt::RoundJoin));
 
     this->prevPoint = QPoint(0, 0);
     this->prevPointSet = false;
