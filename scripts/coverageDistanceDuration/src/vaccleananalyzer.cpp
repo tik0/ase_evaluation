@@ -64,6 +64,7 @@ void VacCleanAnalyzer::start()
             std::cout << "Coverage 2: " << hist.getCurrentCoveragePercent() << std::endl;
             hist.printHist();
 
+
             QString minuteString = QString::number(this->durationWorker->getCurrentDuration() / 60);
             if (minuteString.size() == 1) {
                 minuteString.push_front(QString("00"));
@@ -72,6 +73,8 @@ void VacCleanAnalyzer::start()
             }
 
             this->coverageWorker->exportScenarioAndCoverageImage(QString("scenarioAndCoverage_") + minuteString + QString("m.png"));
+
+            hist.exportScenarioAndHeatmap(QString("scenarioAndHeatmap_") + minuteString + QString("m.png"));
 
             goal += 300;
         }
@@ -96,6 +99,8 @@ void VacCleanAnalyzer::start()
 
     std::cout << "Exporting combined Scenario&Coverage Images in 5 minute steps..." << std::endl;
     this->coverageWorker->exportScenarioAndCoverageImage(QString("scenarioAndCoverage_final.png"));
+    hist.exportScenarioAndHeatmap(QString("scenarioAndHeatmap_final.png"));
+
 
     std::cout << "\nInsert your data into the following spreadsheet:" << std::endl;
     std::cout << "    https://docs.google.com/spreadsheets/d/1Hql7qDrgEm0oKqIBd6pix0cMSshNFj__7QqPNpNRtXE/edit?usp=sharing\n" << std::endl;

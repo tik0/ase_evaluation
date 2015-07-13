@@ -4,6 +4,7 @@
 
 #include <QPainter>
 #include <iostream>
+#include <QFile>
 
 void Coverage2::printHist() {
     std::cout << "Histogramm" << std::endl;
@@ -53,6 +54,7 @@ Coverage2::Coverage2(int height, int width, int diameterInCM) {
 void Coverage2::updateMap(int time, int xp, int yp) {
     //qDebug() << Q_FUNC_INFO << time << xp << yp;
 
+    updated = false;
     int r = this->diameterInPX/2;
 
     for(int x = xp-r ; x < xp+r; x++) {
@@ -60,19 +62,16 @@ void Coverage2::updateMap(int time, int xp, int yp) {
         for(int y = yp-r ; y < yp+r; y++) {
             QList<Pixel *> ymap = map.at(x);
             if(y < 0 || y >= ymap.size()) continue;
-            Pixel * p = ymap.at(y);
-            p->update(time);
+            int a = x - xp;
+            int b = y - yp;
+            if (a*a + b*b <= r*r) {
+                Pixel * p = ymap.at(y);
+                p->update(time);
+            }
         }
     }
 
-   // for(int x = 0; x < map.size(); x++ ) {
-     //   QList<Pixel> ym = map.at(x);
-       // if (x < xp+r && x > xp-r)
-        //for(int y = 0; y < ym.size(); y++) {
-
-        //}
-   // }
-    /*
+   /*
     foreasch pixel in map
             if pixel in circle around x y
                 pixel.update(time)
@@ -99,6 +98,7 @@ QImage Coverage2::createImageWithOverlay(const QImage& baseImage, const QImage& 
 }
 
 void Coverage2::calcHist() {
+    if(updated) return;
 
     visitedPx = 0;
 
@@ -125,6 +125,7 @@ void Coverage2::calcHist() {
     if(hist.isEmpty()) {
         hist.append(-1);
     }
+    updated = true;
 }
 
 double Coverage2::getCurrentCoveragePercent()
@@ -138,5 +139,55 @@ double Coverage2::getCurrentCoveragePercent()
     perc = double(qRound(perc)) / 100;
 
     return perc;
+}
+
+void Coverage2::updateHeatmap()
+{
+    calcHist();
+    this->coverageImage = new QImage(width, height, QImage::Format_ARGB32);
+    this->coverageImage->fill(Qt::transparent);
+
+    QList<QRgb> l;
+    l.append(qRgb(166,247,247));
+    l.append(qRgb(126, 207, 247));
+    l.append(qRgb(46, 112, 219));
+    l.append(qRgb(23, 35, 207));
+    l.append(qRgb(114, 0, 171));
+
+    for(int x = 0; x < map.size(); x++ ) {
+        QList<Pixel *> ym = map.at(x);
+        for(int y = 0; y < ym.size(); y++) {
+            Pixel * p = ym.at(y);
+            if(p->numVisited > 0) {
+                QRgb c;
+                if(p->numVisited+1 > l.size()) {
+                    c = l.back();
+                } else {
+                    c = l.at(p->numVisited);
+                }
+                coverageImage->setPixel(x,y,c);
+            }
+
+        }
+    }
+
+
+}
+
+void Coverage2::exportCurrentHeatmap()
+{
+    updateHeatmap();
+    QFile file("coverage.png");
+    file.open(QIODevice::WriteOnly);
+    this->coverageImage->save(&file, "PNG");
+}
+
+void Coverage2::exportScenarioAndHeatmap(QString filename)
+{
+    updateHeatmap();
+    QImage overlay = createImageWithOverlay(*this->coverageImage, *this->scenarioImage);
+    QFile file(filename);
+    file.open(QIODevice::WriteOnly);
+    overlay.save(&file, "PNG");
 }
 

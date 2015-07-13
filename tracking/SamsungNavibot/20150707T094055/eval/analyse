@@ -1,0 +1,142 @@
+starting vacCleanAnalyzer...
+
+########################
+After 5 minutes:
+
+Trackpoints: 7103
+Coverage:    30.45 %
+Distance:    16802.6 px
+             56.0086 m
+Duration:    300 sec
+             00:05:00 (hh:mm:ss)
+
+Coverage 2: 30.27
+Histogramm
+visits	1	2	3	4	5	6	
+pixel 	916172	459113	27773	1695	135	1	
+
+########################
+After 10 minutes:
+
+Trackpoints: 12857
+Coverage:    52.82 %
+Distance:    28626.2 px
+             95.4206 m
+Duration:    600 sec
+             00:10:00 (hh:mm:ss)
+
+Coverage 2: 52.08
+Histogramm
+visits	1	2	3	4	5	6	7	
+pixel 	1576025	737466	117747	24344	4308	71	1	
+
+########################
+After 15 minutes:
+
+Trackpoints: 20967
+Coverage:    77.34 %
+Distance:    43162 px
+             143.873 m
+Duration:    900 sec
+             00:15:00 (hh:mm:ss)
+
+Coverage 2: 76.49
+Histogramm
+visits	1	2	3	4	5	6	7	8	
+pixel 	2315000	1206139	328355	71781	7759	293	82	2	
+
+########################
+After 20 minutes:
+
+Trackpoints: 27924
+Coverage:    87 %
+Distance:    55074.1 px
+             183.58 m
+Duration:    1200 sec
+             00:20:00 (hh:mm:ss)
+
+Coverage 2: 86.06
+Histogramm
+visits	1	2	3	4	5	6	7	8	
+pixel 	2604409	1643076	602010	150232	24129	4000	150	2	
+
+########################
+After 25 minutes:
+
+Trackpoints: 35820
+Coverage:    89.74 %
+Distance:    83420.7 px
+             278.069 m
+Duration:    1500 sec
+             00:25:00 (hh:mm:ss)
+
+Coverage 2: 88.62
+Histogramm
+visits	1	2	3	4	5	6	7	8	9	10	
+pixel 	2681903	2017527	1107333	421649	110020	33740	11476	4075	1594	141	
+
+########################
+After 30 minutes:
+
+Trackpoints: 42961
+Coverage:    90.89 %
+Distance:    104598 px
+             348.659 m
+Duration:    1800 sec
+             00:30:00 (hh:mm:ss)
+
+Coverage 2: 89.76
+Histogramm
+visits	1	2	3	4	5	6	7	8	9	10	11	12	
+pixel 	2716348	2240734	1576614	861298	345694	119330	32351	8129	3230	760	114	7	
+
+########################
+After 35 minutes:
+
+Trackpoints: 48252
+Coverage:    91.25 %
+Distance:    110611 px
+             368.705 m
+Duration:    2104 sec
+             00:35:04 (hh:mm:ss)
+
+Coverage 2: 90.15
+Histogramm
+visits	1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17	18	19	20	21	22	23	24	25	
+pixel 	2728237	2314297	1703183	989259	439542	177428	64462	24928	11245	5006	2409	1262	724	407	247	134	78	42	17	8	5	3	1	1	1	
+
+########################
+After 40 minutes:
+
+Trackpoints: 51348
+Coverage:    91.69 %
+Distance:    122381 px
+             407.936 m
+Duration:    2400 sec
+             00:40:00 (hh:mm:ss)
+
+Coverage 2: 90.33
+Histogramm
+visits	1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17	18	19	20	21	22	23	24	25	26	27	28	29	30	31	32	33	34	35	36	37	38	39	40	41	42	43	
+pixel 	2733603	2321048	1713277	1009103	457252	194207	70430	28806	13301	5845	2818	1573	961	666	474	347	286	250	225	216	213	211	209	209	209	208	208	208	208	208	208	208	208	208	203	119	112	104	104	101	63	19	8	
+
+########################
+Finished calculations.
+
+Total Trackpoints: 54154
+Total Coverage:    91.69 %
+Total Distance:    123529 px
+                   411.764 m
+Total Duration:    2520 sec
+                   00:42:00 (hh:mm:ss)
+Coverage 2: 90.33
+Histogramm
+visits	1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17	18	19	20	21	22	23	24	25	26	27	28	29	30	31	32	33	34	35	36	37	38	39	40	41	42	43	44	45	46	47	48	49	50	51	52	53	54	55	56	57	58	59	60	61	62	63	64	65	66	67	68	69	70	71	72	73	74	75	
+pixel 	2733603	2321048	1713277	1009338	458425	198509	73215	28806	13301	5845	2818	1573	961	666	474	347	286	250	225	216	213	211	209	209	209	208	208	208	208	208	208	208	208	208	208	208	208	208	208	208	208	208	208	208	208	208	208	208	208	208	208	208	208	208	208	208	208	208	208	208	203	119	112	104	104	104	104	104	104	104	104	101	63	19	8	
+
+Exporting Coverage Image...
+Exporting combined Scenario&Coverage Images in 5 minute steps...
+
+Insert your data into the following spreadsheet:
+    https://docs.google.com/spreadsheets/d/1Hql7qDrgEm0oKqIBd6pix0cMSshNFj__7QqPNpNRtXE/edit?usp=sharing
+

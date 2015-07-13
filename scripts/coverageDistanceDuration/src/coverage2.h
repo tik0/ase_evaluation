@@ -35,9 +35,13 @@ public:
     void updateMap(int time, int x, int y);
 
     double getCurrentCoveragePercent();
+    void exportCurrentHeatmap();
+    void exportScenarioAndHeatmap(QString filename);
     void printHist();
 
 private:
+    void updateHeatmap();
+
     int height, width, diameterInPX;
     QList<QList<Pixel * > > map;
     QList<int> hist;
@@ -49,6 +53,7 @@ private:
     int passablePx;
     int visitedPx;
     double perc;
+    bool updated;
 
     void calcHist();
 
