@@ -146,16 +146,8 @@ In Fig. \ref{fig:scenario} you can see the setup stitched from the cameras at th
 	\caption{Sketch-overlay of the setup}
 	\label{fig:scenario}
 \end{figure}
-\subsection{Tracking Tool} % Someone else
-
-\begin{figure} 
-	\begin{centering}
-		\includegraphics[width=0.5\textwidth]{setup.jpg}
-		\caption{Exemplary camera picture.}
-		\label{fig:setup}
-	\end{centering}
-\end{figure}
-The tracking tool consists of four independent optical cameras, which are mounted to the ceiling and face towards the ground. Each camera provides a resolution of $1000 \times 1000$ pixel, bringing the total resolution to $2000 \times 2000$. A sample picture can be seen in Figure \ref{fig:setup}. Markers are glued to the objects that are to be tracked. Multiple objects can be tracked simultaneously. Each camera generates independent tracking data, which can be stitched with the other cameras' tracking data in the post processing step. Each entry in the tracking data contains the following elements:
+\subsection{Tracking Tool} % Kosnoros
+The tracking tool consists of four independent optical cameras, which are mounted to the ceiling and face towards the ground. Each camera provides a resolution of $1000 \times 1000$ pixel, bringing the total resolution to $2000 \times 2000$. A sample picture can be seen in Figure \ref{fig:setup}. Markers are glued to the objects that are to be tracked. Multiple objects can be tracked simultaneously. Each camera generates independent tracking data, which can be stitched with the other cameras' tracking data in the preprocessing step. Each entry in the tracking data contains the following elements:
 
 \begin{itemize}
 	\item Timestamp.
@@ -167,7 +159,13 @@ The tracking tool consists of four independent optical cameras, which are mounte
 \end{itemize}
 X and Y-coordinates are given in pixel values that correspond to the marker position. 
 
-
+\begin{figure} [H]
+	\begin{centering}
+		\includegraphics[width=0.5\textwidth]{pictures/setup.jpg}
+		\caption{Exemplary camera picture.}
+		\label{fig:setup}
+	\end{centering}
+\end{figure}
 
 
 \subsection{Execution} % TODO Andi
