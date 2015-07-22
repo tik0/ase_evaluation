@@ -176,11 +176,11 @@ The tracking tool consists of four independent optical cameras, which are mounte
 X and Y-coordinates are given in pixel values that correspond to the marker position. 
 
 \begin{figure} [H]
-	\begin{centering}
+	\begin{center}
 		\includegraphics[width=0.5\textwidth]{pictures/setup.jpg}
 		\caption{Exemplary camera picture.}
 		\label{fig:setup}
-	\end{centering}
+	\end{center}
 \end{figure}
 
 
@@ -208,6 +208,32 @@ All of this is done in the method \textit{\texttt{extractData(...)}}. It is call
 \subsubsection{Distance} % TODO Andi
 \subsubsection{Duration} % TODO Timo
 \subsubsection{Coverage} % TODO Julian D.
+
+Another task was to precisely calculate the percentage the robot covered until a certain amount of tracking points.
+
+In order to achieve this, the \textit{\texttt{VacCleanAnalyzer}} class first generates an instance of the \textit{\texttt{Coverage}} class.
+Height and width of the tracking image, as well as the diameter of the robot in centimeters are passed via parameters.
+While iterating over the tracking data, the tracking points are then successively passed to the \textit{\texttt{Coverage::updateCoverage(...)}} method.
+In this method a green line is drawn from coordinate to coordinate onto an empty image with the dimensions of the tracking image.
+The thickness of this line corresponds to the diameter of the robot.
+
+At any arbitrary point it is possible to call the \textit{\texttt{Coverage::getCurrentCoveragePercent()}} method, in which the current precentage of the coverage will be calculated depending on the amount of green pixels in the image.
+Additionally it is possible to provide a scenario model to the program.
+This scenario image has to look like the red overlay which is already shown in Figure \ref{fig:setup}.
+Every pixel pointed in red will then not be consulted for the coverage calculation, leading to the fact that the resulting percentage only depends on the area, that the robot theoretically could have reached.
+
+Furthermore it is possible to export the coverage image at any time.
+In order to do so the \textit{\texttt{Coverage::exportScenarioAndCoverageImage(...)}} method has to be called.
+A combination of the scenario and of the coverage image will then be created and saved under the given filename.
+Examples of these images can be seen in Figure \ref{fig:coverage}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{pictures/coverage_process.png}
+	\caption{Coverage example of the Miele Scout RX1 (interval of 5 minutes)}
+	\label{fig:coverage}
+\end{figure}
+
 \subsubsection{Heatmap} % TODO Leroy
 
 \subsection{Group 2} % TODO Julian E. & Martin
