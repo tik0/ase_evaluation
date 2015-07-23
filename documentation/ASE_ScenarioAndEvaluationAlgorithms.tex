@@ -185,6 +185,25 @@ X and Y-coordinates are given in pixel values that correspond to the marker posi
 
 
 \subsection{Execution} % TODO Andi
+Before some tracking data can be collected with the tracking tool, there must be prepare the scenario and start the tool.
+
+\subsubsection{Cameras and light}
+The first step is to prepare the cameras, if they are off. That means to turn-on all of the cameras and wait for 2-3 minutes. In these time, the server of the teleworkbench is assigning a IP address for each camera.
+
+The next step is to turn-on the teleworkbench lights above the test area to get a better tracking quality. This can be done via the DALI web-interface, where every light can be switch on/off by pressing the related button.
+
+\subsubsection{Start GUI of the tracking tool}
+By a double click on the short cut \textit{TWB\_GUI\_VIDEO\_AND\_TRACK\_RECORD} the teleworkbench GUI opens. To record a new video and track data, the button \textit{Access the Cameras} should be pressed. Hereupon will be pop up a window as reminder that you have to wait for few seconds, which can be click away by \textit{OK}. Now, the tracking tool is ready to track data and the next \textit{OK} button starts the tracking process. Before the start button is pressed, the robot should be placed in the center of the robots at the red marker, like in figure \ref{fig:place}. In addition to allow tracking, a marker must be placed (and better taped) on the robot. An important point is that there is no one inside the TWB area in the beginning when the tracking tool starts. If everything is fine, the tracking can be started via the \textit{OK} button and at once,the robot should be started via remote control too.
+
+\begin{figure} [H]
+	\begin{center}
+		\includegraphics[width=0.5\textwidth]{pictures/place.jpg}
+		\caption{Start position of the robot with the charging station.}
+		\label{fig:place}
+	\end{center}
+\end{figure}
+
+If the cleaning process of the robot is done, the tracking process should be stopped via pressing the \textit{ESC} key. Now, you can get the tracking data, which are in the folder \textit{D:\textbackslash ASE\_ProjectVideo\_TWB\textbackslash RecordingDateandTime}.
 
 \section{Evalution Algorithms}
 \subsection{Group 1}
@@ -206,6 +225,13 @@ Later we added a scaling factor to the x and y position because the tracking dat
 All of this is done in the method \textit{\texttt{extractData(...)}}. It is called four times (for the four files) from the method \textit{\texttt{preprocessTrackingData()}} inside the \textit{\texttt{VacCleanAnalyzer}} class.
 
 \subsubsection{Distance} % TODO Andi
+One task is to compute the distance of the robot during a cleaning process, which based on the tracking data.
+
+First of all the \textit{\texttt{VacCleanAnalyzer}} class generates an instance of the \textit{\texttt{Coverage}} class. The relevant values are the X- and Y-coordinates. The main idea is that the distance between two successive tracking points is computed and add them together. The distance between the two points is realized via Pythagorean theorem in the \textit{\texttt{Distance::updateDistance(...)}} method. That means in the first cycle the distance is the first point, because their are no two points. But now every cycle the Pythagorean theorem sets a new distance and then the method add the new distance value with the old distance value together.
+
+
+At every time, the current distance can be get via the call of \textit{\texttt{Distance::getCurrentDistance()}} method and \textit{\texttt{Distance::getDistanceInM()}} method in pixels and in meters.
+
 \subsubsection{Duration} % TODO Timo
 \subsubsection{Coverage} % TODO Julian D.
 
