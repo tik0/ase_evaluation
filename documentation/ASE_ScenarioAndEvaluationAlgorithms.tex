@@ -233,6 +233,16 @@ First of all the \textit{\texttt{VacCleanAnalyzer}} class generates an instance 
 At every time, the current distance can be get via the call of \textit{\texttt{Distance::getCurrentDistance()}} method and \textit{\texttt{Distance::getDistanceInM()}} method in pixels and in meters.
 
 \subsubsection{Duration} % TODO Timo
+To analyse how much time passed until a certain point of the tracking data, another task was to calculate the elapsed time between the first and the current data point.
+
+The \textit{\texttt{Duration}} class provides this functionality to the \textit{\texttt{VacCleanAnalyzer}} class. 
+Relevant for this class are the two timestamps which are split into hours, minutes and seconds. The first one is the referencing timestamp to which the difference is calculated. The second one is the current timestamp.
+Within the iteration over the tracking data, the timestamp of the current data, which is stored as the key of the \texttt{QMap}, is passed to the \textit{\texttt{Duration::updateDuration(...)}} function. If called for the first time, the function stores the given timestamp as the referencing one. With every following call of the function, the current timestamp is overwritten with the one.
+
+The class also provides two functions, which return the current duration. The function \\ \textit{\texttt{Duration::getCurrentDuration()}} provides the passed time in seconds and the \\ \textit{\texttt{Duration::getFormattedDuration()}} function formats the duration into the "HH:MM:SS" format. The main functionality of this methods are similar. They both calculate the duration by calculating the difference of the current timestamp to the first one. 
+
+At any stage of the iteration it is possible to call this functions and get to know how much time is passed until this data point.
+
 \subsubsection{Coverage} % TODO Julian D.
 
 Another task was to precisely calculate the percentage the robot covered until a certain amount of tracking points.
